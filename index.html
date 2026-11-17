@@ -18,29 +18,31 @@
 <script src="https://cdn.jsdelivr.net/npm/mpegts.js@1.7.3/dist/mpegts.min.js"></script>
 <style>
 :root{
-  --bg:#0a0e1a; --panel:#111729; --panel2:#171f36; --line:#222b46;
-  --text:#e9edf7; --muted:#8a94b3; --acc:#f5b942; --acc2:#3dd6c6; --danger:#ff6b6b;
+  --bg:#1b2233; --panel:#232c40; --panel2:#2a344b; --inset:#1f273a; --line:#34405a; --line2:#46536f;
+  --text:#e8edf5; --muted:#9aa6c0; --acc:#f2b45a; --acc2:#5fd0c0; --onacc:#1d1606;
+  --danger:#ff7b7b; --warn:#f6c76b; --ok:#6fe0d2; --hdrbg:rgba(27,34,51,.82); --starbg:rgba(20,26,40,.6);
+  --thumb1:#1f2739; --thumb2:#283249; --glow1:rgba(95,208,192,.10); --glow2:rgba(242,180,90,.08); --shadow:0 6px 24px rgba(0,0,0,.18);
   --r:14px; --hdr:64px;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;background:var(--bg);color:var(--text);
   font-family:"Tajawal",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:15px}
 body{min-height:100vh;
-  background:radial-gradient(1200px 600px at 85% -10%,rgba(61,214,198,.10),transparent 60%),
-             radial-gradient(900px 500px at 0% 0%,rgba(245,185,66,.08),transparent 60%),var(--bg)}
+  background:radial-gradient(1200px 600px at 85% -10%,var(--glow1),transparent 60%),
+             radial-gradient(900px 500px at 0% 0%,var(--glow2),transparent 60%),var(--bg);background-attachment:fixed;transition:background-color .4s,color .4s}
 button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
 input,textarea{font:inherit;color:var(--text)}
-::-webkit-scrollbar{width:8px;height:8px}::-webkit-scrollbar-thumb{background:#2a3456;border-radius:8px}
+::-webkit-scrollbar{width:8px;height:8px}::-webkit-scrollbar-thumb{background:var(--line2);border-radius:8px}
 
 /* Header */
 header{position:sticky;top:0;z-index:30;height:calc(var(--hdr) + env(safe-area-inset-top));
   padding:env(safe-area-inset-top) calc(18px + env(safe-area-inset-right)) 0 calc(18px + env(safe-area-inset-left));
   display:flex;align-items:center;gap:14px;
-  background:rgba(10,14,26,.78);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  background:var(--hdrbg);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
   border-bottom:1px solid var(--line)}
 .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px;white-space:nowrap}
 .brand .logo{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;
-  background:linear-gradient(135deg,var(--acc),var(--acc2));color:#0a0e1a;font-size:18px}
+  background:linear-gradient(135deg,var(--acc),var(--acc2));color:var(--onacc);font-size:18px}
 .brand small{display:block;font-size:11px;color:var(--muted);font-weight:500;margin-top:-2px}
 .search{flex:1;max-width:560px;margin-inline:auto;position:relative}
 .search input{width:100%;height:42px;border-radius:12px;border:1px solid var(--line);
@@ -64,7 +66,7 @@ aside{position:sticky;top:calc(var(--hdr) + env(safe-area-inset-top) + 18px);
 .cat.on{background:linear-gradient(90deg,rgba(61,214,198,.08),rgba(245,185,66,.16));color:var(--text);
   box-shadow:inset -3px 0 0 var(--acc)}
 .cat span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.cat b{font-weight:500;font-size:12px;background:#0d1222;border-radius:20px;padding:2px 8px;color:var(--muted)}
+.cat b{font-weight:500;font-size:12px;background:var(--inset);border-radius:20px;padding:2px 8px;color:var(--muted)}
 .sep{height:1px;background:var(--line);margin:8px 4px}
 .cat-title{font-size:12px;color:var(--muted);padding:6px 12px}
 
@@ -84,13 +86,13 @@ video{width:100%;height:100%;display:block;background:#000}
 .err{color:#ffd0d0;max-width:520px;line-height:1.7}
 .err b{color:var(--danger);display:block;font-size:17px;margin-bottom:4px}
 .pbar{display:flex;align-items:center;gap:12px;padding:12px 14px;flex-wrap:wrap}
-.pbar .plogo{width:52px;height:52px;border-radius:12px;background:#0d1222;display:grid;place-items:center;
+.pbar .plogo{width:52px;height:52px;border-radius:12px;background:var(--inset);display:grid;place-items:center;
   overflow:hidden;flex:none;font-weight:800;color:var(--acc)}
 .pbar .plogo img{width:100%;height:100%;object-fit:contain}
 .pinfo{flex:1;min-width:140px}
 .pinfo h2{margin:0;font-size:18px}
 .pinfo div{color:var(--muted);font-size:13px;margin-top:2px}
-.live{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:#ff8a8a;margin-inline-start:8px;vertical-align:middle}
+.live{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--danger);margin-inline-start:8px;vertical-align:middle}
 .live:before{content:"";width:7px;height:7px;border-radius:50%;background:#ff4d4d;animation:pulse 1.4s infinite}
 @keyframes pulse{50%{opacity:.3}}
 .pbtns{display:flex;gap:6px;flex-wrap:wrap}
@@ -104,18 +106,18 @@ video{width:100%;height:100%;display:block;background:#000}
 .toolbar h1{font-size:20px;margin:0}
 .toolbar .count{font-size:13px}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
-.card{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);
+.card{position:relative;background:var(--panel);box-shadow:var(--shadow);border:1px solid var(--line);border-radius:var(--r);
   padding:10px;text-align:right;transition:transform .15s,border-color .15s,background .15s;cursor:pointer}
-.card:hover{transform:translateY(-3px);border-color:#34406a;background:var(--panel2)}
+.card:hover{transform:translateY(-3px);border-color:var(--line2);background:var(--panel2)}
 .card.on{border-color:var(--acc);box-shadow:0 0 0 2px rgba(245,185,66,.25)}
-.thumb{aspect-ratio:16/10;border-radius:10px;background:linear-gradient(135deg,#0e1426,#141c33);
+.thumb{aspect-ratio:16/10;border-radius:10px;background:linear-gradient(135deg,var(--thumb1),var(--thumb2));
   display:grid;place-items:center;overflow:hidden;margin-bottom:8px}
 .thumb img{width:78%;height:78%;object-fit:contain}
 .thumb .ini{font-size:26px;font-weight:800;color:var(--acc);opacity:.85}
 .cname{font-weight:700;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .cgrp{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .star{position:absolute;top:14px;left:14px;width:30px;height:30px;border-radius:9px;display:grid;place-items:center;
-  background:rgba(10,14,26,.7);color:var(--muted);opacity:0;transition:.15s}
+  background:var(--starbg);color:var(--muted);opacity:0;transition:.15s}
 .card:hover .star,.star.on{opacity:1}
 .star.on{color:var(--acc)}
 .sentinel{height:40px}
@@ -126,7 +128,7 @@ video{width:100%;height:100%;display:block;background:#000}
   font-size:42px;background:linear-gradient(135deg,rgba(245,185,66,.18),rgba(61,214,198,.18));color:var(--text)}
 .empty h2{color:var(--text);margin:0 0 8px}
 .btn{height:44px;padding:0 20px;border-radius:12px;font-weight:700;display:inline-flex;align-items:center;gap:8px;
-  background:linear-gradient(135deg,var(--acc),#f0a020);color:#1a1200}
+  background:linear-gradient(135deg,var(--acc),color-mix(in srgb,var(--acc) 78%,#c06a00));color:var(--onacc)}
 .btn.ghost{background:var(--panel2);color:var(--text);border:1px solid var(--line)}
 .btn:disabled{opacity:.5;cursor:default}
 
@@ -138,51 +140,76 @@ video{width:100%;height:100%;display:block;background:#000}
   border-radius:18px;padding:20px}
 .mbox h3{margin:0 0 4px;font-size:20px}
 .mbox p.sub{margin:0 0 16px;color:var(--muted);font-size:13px}
-.tabs{display:flex;gap:6px;background:#0d1222;padding:5px;border-radius:12px;margin-bottom:14px;overflow:auto}
+.tabs{display:flex;gap:6px;background:var(--inset);padding:5px;border-radius:12px;margin-bottom:14px;overflow:auto}
 .tab{flex:1;padding:8px 10px;border-radius:9px;color:var(--muted);white-space:nowrap}
 .tab.on{background:var(--panel2);color:var(--text)}
 .pane{display:none}.pane.on{display:block}
 label{display:block;font-size:13px;color:var(--muted);margin:10px 0 6px}
-.field{width:100%;height:44px;border-radius:11px;border:1px solid var(--line);background:#0d1222;padding:0 12px;outline:none;direction:ltr;text-align:left}
+.field{width:100%;height:44px;border-radius:11px;border:1px solid var(--line);background:var(--inset);padding:0 12px;outline:none;direction:ltr;text-align:left}
 textarea.field{height:150px;padding:10px;resize:vertical}
 .field:focus{border-color:var(--acc2)}
 .row{display:flex;gap:10px;align-items:center;margin-top:16px;flex-wrap:wrap}
 .msg{margin-top:12px;font-size:13px;line-height:1.7;padding:10px 12px;border-radius:10px;display:none}
-.msg.show{display:block}.msg.bad{background:rgba(255,107,107,.1);color:#ffbcbc}.msg.ok{background:rgba(61,214,198,.1);color:#a8f3ea}
-.demo{margin-top:16px;padding:12px;border-radius:12px;border:1px dashed #34406a;font-size:13px;color:var(--muted)}
+.msg.show{display:block}.msg.bad{background:rgba(255,107,107,.1);color:var(--danger)}.msg.ok{background:rgba(61,214,198,.1);color:var(--ok)}
+.demo{margin-top:16px;padding:12px;border-radius:12px;border:1px dashed var(--line2);font-size:13px;color:var(--muted)}
 .info{display:flex;gap:10px;margin:6px 0 4px;flex-wrap:wrap}
-.chip{background:#0d1222;border:1px solid var(--line);border-radius:20px;padding:4px 12px;font-size:12px;color:var(--muted)}
-.drop{border:2px dashed #34406a;border-radius:14px;padding:26px;text-align:center;color:var(--muted)}
+.chip{background:var(--inset);border:1px solid var(--line);border-radius:20px;padding:4px 12px;font-size:12px;color:var(--muted)}
+.drop{border:2px dashed var(--line2);border-radius:14px;padding:26px;text-align:center;color:var(--muted)}
 .drop.over{border-color:var(--acc2);color:var(--text)}
 
 /* Discover (AI) */
-.hbtn.ai{background:linear-gradient(135deg,rgba(245,185,66,.18),rgba(61,214,198,.18));border-color:#3a4670}
+.hbtn.ai{background:linear-gradient(135deg,rgba(245,185,66,.18),rgba(61,214,198,.18));border-color:var(--line2)}
 .mbox.wide{max-width:760px}
 .dq{display:flex;gap:8px;margin-top:6px}
 .dq .field{direction:rtl;text-align:right;flex:1;height:48px;font-size:16px}
 .dq .btn{height:48px}
 .quick{display:flex;gap:6px;flex-wrap:wrap;margin:12px 0 4px}
-.quick button{background:#0d1222;border:1px solid var(--line);border-radius:20px;padding:6px 12px;font-size:13px;color:var(--muted)}
+.quick button{background:var(--inset);border:1px solid var(--line);border-radius:20px;padding:6px 12px;font-size:13px;color:var(--muted)}
 .quick button:hover{color:var(--text);border-color:var(--acc2)}
 .aistat{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);margin-top:4px}
-.aistat i{width:8px;height:8px;border-radius:50%;background:#6b7499;display:inline-block}
+.aistat i{width:8px;height:8px;border-radius:50%;background:var(--muted);display:inline-block}
 .aistat.on i{background:var(--acc2);box-shadow:0 0 8px var(--acc2)}
 .dsum{margin:14px 0 8px;font-size:13px;color:var(--muted);display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
 .dsum b{color:var(--text)}
 .res{display:flex;flex-direction:column;gap:8px}
-.ritem{display:flex;align-items:center;gap:10px;background:#0d1222;border:1px solid var(--line);border-radius:12px;padding:8px}
+.ritem{display:flex;align-items:center;gap:10px;background:var(--inset);border:1px solid var(--line);border-radius:12px;padding:8px}
 .rlogo{width:58px;height:42px;border-radius:9px;background:var(--panel2);display:grid;place-items:center;overflow:hidden;flex:none}
 .rlogo img{width:85%;height:85%;object-fit:contain}.rlogo .ini{font-size:15px;font-weight:800;color:var(--acc)}
 .rinfo{flex:1;min-width:0}
 .rinfo .cname{font-size:14px}
 .tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:3px}
 .tg{font-size:11px;padding:1px 7px;border-radius:12px;background:var(--panel2);color:var(--muted)}
-.tg.w{color:#ffcf7a;background:rgba(245,185,66,.1)}
+.tg.w{color:var(--warn);background:rgba(245,185,66,.1)}
 .ritem .ib{width:36px;height:36px;flex:none}
-.ritem .ib.add.on{color:#0a0e1a;background:var(--acc2);border-color:var(--acc2)}
+.ritem .ib.add.on{color:var(--onacc);background:var(--acc2);border-color:var(--acc2)}
 details.aiset{margin-top:16px;border-top:1px solid var(--line);padding-top:10px}
 details.aiset summary{cursor:pointer;color:var(--muted);font-size:13px}
 details.aiset p{font-size:12px;color:var(--muted);line-height:1.7}
+
+/* Themes */
+.tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-top:8px}
+.tcard{border:2px solid var(--line);border-radius:14px;padding:8px;text-align:right;background:var(--inset);transition:.15s}
+.tcard:hover{border-color:var(--line2)}.tcard.on{border-color:var(--acc)}
+.tprev{height:62px;border-radius:9px;display:flex;gap:5px;padding:7px;margin-bottom:7px}
+.tprev i{flex:1;border-radius:6px;display:block}.tprev i:first-child{flex:.45}
+.tprev b{width:16px;height:16px;border-radius:50%;align-self:flex-end;flex:none}
+.tcard .tn{font-weight:700;font-size:14px}.tcard .td{font-size:11.5px;color:var(--muted)}
+.smart{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.smart .tcard{display:flex;align-items:center;gap:10px}.smart .tcard span:first-child{font-size:24px}
+.sect{font-size:13px;color:var(--muted);margin:16px 0 4px}
+/* Discover browse */
+.dtabs{margin:12px 0 0}
+.cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin-top:10px}
+.ctile{display:flex;align-items:center;gap:8px;padding:9px 10px;border-radius:11px;background:var(--inset);border:1px solid var(--line);text-align:right;transition:.15s}
+.ctile:hover{border-color:var(--acc2);transform:translateY(-1px)}
+.ctile .f{font-size:22px;line-height:1}.ctile .nm{flex:1;min-width:0;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ctile b{font-size:11px;font-weight:500;color:var(--muted)}
+.gsec{font-size:13px;color:var(--muted);margin:14px 2px 0}
+.filt{display:flex;gap:14px;flex-wrap:wrap;font-size:12.5px;color:var(--muted);margin-top:4px}
+.filt label{display:flex;align-items:center;gap:6px;margin:0;cursor:pointer;color:var(--muted);font-size:12.5px}
+.filt input{accent-color:var(--acc2);width:16px;height:16px}
+.back{font-size:13px;color:var(--acc2);padding:4px 0}
+select.field{direction:rtl;text-align:right}
 
 footer{text-align:center;color:var(--muted);font-size:12px;padding:10px 0 calc(24px + env(safe-area-inset-bottom))}
 footer b{color:var(--acc)}
@@ -197,6 +224,7 @@ footer b{color:var(--acc)}
   :root{--hdr:58px}
   header{gap:8px}
   .brand small,.hbtn .t,.count.h{display:none}
+  .brand > div:last-child{display:none}
   .brand{font-size:17px}.brand .logo{width:32px;height:32px}
   .search input{height:38px}
   .hbtn{height:38px;padding:0 11px}
@@ -213,9 +241,34 @@ footer b{color:var(--acc)}
   .ib{width:36px;height:36px}
   .grid{grid-template-columns:repeat(auto-fill,minmax(108px,1fr));gap:9px}
   .card{padding:7px}.cname{font-size:12.5px}.cgrp{display:none}
-  .star{top:10px;left:10px;width:26px;height:26px;opacity:1;background:rgba(10,14,26,.55)}
+  .star{top:10px;left:10px;width:26px;height:26px;opacity:1;background:var(--starbg)}
 }
 </style>
+<script>
+/* Themes — applied before paint so there is no flash */
+window.THEMES = {
+  calm:   {name:'ليل هادئ', desc:'كحلي ناعم مريح للسهر', v:{bg:'#1b2233',panel:'#232c40',panel2:'#2a344b',inset:'#1f273a',line:'#34405a',line2:'#46536f',text:'#e8edf5',muted:'#9aa6c0',acc:'#f2b45a',acc2:'#5fd0c0',onacc:'#1d1606',danger:'#ff7b7b',warn:'#f6c76b',ok:'#6fe0d2',hdrbg:'rgba(27,34,51,.82)',starbg:'rgba(20,26,40,.6)',thumb1:'#1f2739',thumb2:'#283249',glow1:'rgba(95,208,192,.10)',glow2:'rgba(242,180,90,.08)',shadow:'0 6px 24px rgba(0,0,0,.18)'}},
+  ocean:  {name:'أزرق المحيط', desc:'هادئ ومنعش', v:{bg:'#10293a',panel:'#153447',panel2:'#1b3e54',inset:'#122f41',line:'#24506a',line2:'#2f6380',text:'#e6f3f8',muted:'#8fb3c4',acc:'#ffc861',acc2:'#4fd1e0',onacc:'#1d1606',danger:'#ff8a8a',warn:'#ffd27a',ok:'#7fe7f0',hdrbg:'rgba(16,41,58,.82)',starbg:'rgba(10,30,44,.6)',thumb1:'#133246',thumb2:'#1a3f56',glow1:'rgba(79,209,224,.12)',glow2:'rgba(255,200,97,.07)',shadow:'0 6px 24px rgba(0,0,0,.2)'}},
+  oasis:  {name:'أخضر الواحة', desc:'ألوان طبيعية مريحة', v:{bg:'#172620',panel:'#1e3129',panel2:'#253a31',inset:'#1a2b24',line:'#2f4a3e',line2:'#3e5e50',text:'#e7f2ec',muted:'#93b1a2',acc:'#e9c46a',acc2:'#7bd389',onacc:'#1e1a06',danger:'#ff8f8f',warn:'#f0d27a',ok:'#9be6a8',hdrbg:'rgba(23,38,32,.82)',starbg:'rgba(15,28,22,.6)',thumb1:'#1c2e26',thumb2:'#243a31',glow1:'rgba(123,211,137,.10)',glow2:'rgba(233,196,106,.08)',shadow:'0 6px 24px rgba(0,0,0,.18)'}},
+  dusk:   {name:'شفق', desc:'بنفسجي دافئ أنيق', v:{bg:'#241f33',panel:'#2d2740',panel2:'#352e4b',inset:'#28223a',line:'#403857',line2:'#54496f',text:'#efeaf7',muted:'#a99fc0',acc:'#f4a77a',acc2:'#b49cf0',onacc:'#2a1406',danger:'#ff8f9a',warn:'#f6c98a',ok:'#c8b6ff',hdrbg:'rgba(36,31,51,.82)',starbg:'rgba(28,24,40,.6)',thumb1:'#2a2439',thumb2:'#342d48',glow1:'rgba(180,156,240,.11)',glow2:'rgba(244,167,122,.08)',shadow:'0 6px 24px rgba(0,0,0,.18)'}},
+  sand:   {name:'نهار رملي', desc:'فاتح دافئ للنهار', v:{bg:'#f5efe3',panel:'#fffcf6',panel2:'#f4ecdd',inset:'#efe6d5',line:'#e2d6c0',line2:'#cdbd9f',text:'#2f2a22',muted:'#7b705f',acc:'#c7862a',acc2:'#1d8a80',onacc:'#ffffff',danger:'#c0392b',warn:'#a86a06',ok:'#137a70',hdrbg:'rgba(245,239,227,.85)',starbg:'rgba(255,252,246,.88)',thumb1:'#f3ead9',thumb2:'#ece0c9',glow1:'rgba(29,138,128,.08)',glow2:'rgba(199,134,42,.10)',shadow:'0 4px 16px rgba(80,60,20,.08)'}},
+  pearl:  {name:'لؤلؤي', desc:'فاتح هادئ ونظيف', v:{bg:'#eef2f7',panel:'#ffffff',panel2:'#f3f6fa',inset:'#e9eef5',line:'#dbe2ec',line2:'#c3cddc',text:'#1e2638',muted:'#66728a',acc:'#d98a22',acc2:'#12879b',onacc:'#ffffff',danger:'#c62828',warn:'#9a6400',ok:'#0e7a8c',hdrbg:'rgba(238,242,247,.85)',starbg:'rgba(255,255,255,.88)',thumb1:'#eef2f8',thumb2:'#e2e8f1',glow1:'rgba(18,135,155,.07)',glow2:'rgba(217,138,34,.07)',shadow:'0 4px 16px rgba(30,40,70,.07)'}},
+  midnight:{name:'ليلي داكن', desc:'الأسود الكلاسيكي', v:{bg:'#0a0e1a',panel:'#111729',panel2:'#171f36',inset:'#0d1222',line:'#222b46',line2:'#34406a',text:'#e9edf7',muted:'#8a94b3',acc:'#f5b942',acc2:'#3dd6c6',onacc:'#1a1200',danger:'#ff6b6b',warn:'#ffcf7a',ok:'#a8f3ea',hdrbg:'rgba(10,14,26,.78)',starbg:'rgba(10,14,26,.7)',thumb1:'#0e1426',thumb2:'#141c33',glow1:'rgba(61,214,198,.10)',glow2:'rgba(245,185,66,.08)',shadow:'none'}}
+};
+window.resolveTheme = function(mode){
+  if(mode === 'smart'){ var h = new Date().getHours(); return (h >= 6 && h < 18) ? 'sand' : 'calm'; }
+  if(mode === 'system'){ return (window.matchMedia && matchMedia('(prefers-color-scheme: light)').matches) ? 'pearl' : 'calm'; }
+  return THEMES[mode] ? mode : 'calm';
+};
+window.applyTheme = function(mode){
+  window.themeMode = mode;
+  var t = THEMES[resolveTheme(mode)], st = document.documentElement.style;
+  for(var k in t.v) st.setProperty('--' + k, t.v[k]);
+  var m = document.querySelector('meta[name=theme-color]'); if(m) m.setAttribute('content', t.v.bg);
+  try{ localStorage.setItem('qtheme', mode); }catch(e){}
+};
+(function(){ var m = null; try{ m = localStorage.getItem('qtheme'); }catch(e){} applyTheme(m || 'smart'); })();
+</script>
 </head>
 <body>
 
@@ -226,6 +279,7 @@ footer b{color:var(--acc)}
     <input id="q" type="search" placeholder="ابحث عن قناة…  (اضغط / )" autocomplete="off">
   </div>
   <span class="count h" id="hcount"></span>
+  <button class="hbtn" id="openTheme" title="المظهر والألوان">🎨</button>
   <button class="hbtn ai" id="openDisc" title="اكتشاف القنوات بالذكاء الاصطناعي">✨ <span class="t">اكتشاف القنوات</span></button>
   <button class="hbtn" id="openSrc" title="قائمة القنوات">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
@@ -277,6 +331,7 @@ footer b{color:var(--acc)}
       <button class="tab" data-p="pX">Xtream Codes</button>
       <button class="tab" data-p="pFile">ملف</button>
       <button class="tab" data-p="pText">لصق نص</button>
+      <button class="tab" data-p="pOne">قناة واحدة</button>
     </div>
     <div class="pane on" id="pUrl">
       <label>رابط القائمة (M3U / M3U8)</label>
@@ -302,15 +357,36 @@ footer b{color:var(--acc)}
       <textarea class="field" id="mText" placeholder="#EXTM3U&#10;#EXTINF:-1 tvg-logo=&quot;…&quot; group-title=&quot;…&quot;,اسم القناة&#10;http://…"></textarea>
       <div class="row"><button class="btn" id="loadText">استيراد</button></div>
     </div>
+    <div class="pane" id="pOne">
+      <label>اسم القناة</label><input class="field" id="oName" style="direction:rtl;text-align:right" placeholder="مثال: تلفزيون عُمان">
+      <label>رابط البث (m3u8 أو ts)</label><input class="field" id="oUrl" placeholder="https://…/index.m3u8">
+      <label>الفئة (اختياري)</label><input class="field" id="oGroup" style="direction:rtl;text-align:right" placeholder="قنواتي المضافة">
+      <label>رابط الشعار (اختياري)</label><input class="field" id="oLogo" placeholder="https://…/logo.png">
+      <div class="row"><button class="btn" id="addOne">إضافة القناة</button><button class="btn ghost" id="testOne">▶ تجربة</button></div>
+    </div>
     <div class="msg" id="msg"></div>
     <div class="demo">
       للتجربة السريعة: قنوات عربية مجانية من الدليل المفتوح iptv-org.
       <div class="row" style="margin-top:8px"><button class="btn ghost" id="loadDemo">تحميل القنوات العربية المجانية</button></div>
     </div>
     <div class="row" style="justify-content:space-between">
-      <button class="btn ghost" id="clearAll" style="color:#ffb0b0">حذف القائمة</button>
+      <button class="btn ghost" id="clearAll" style="color:var(--danger)">حذف القائمة</button>
       <button class="btn ghost" id="closeSrc">إغلاق</button>
     </div>
+  </div>
+</div>
+
+<!-- Theme modal -->
+<div class="modal" id="themeModal">
+  <div class="mbox wide">
+    <div style="display:flex;justify-content:space-between;align-items:start;gap:10px">
+      <div><h3>🎨 المظهر</h3><p class="sub" style="margin-bottom:0">اختر ألواناً مريحة لعينيك. يُحفظ اختيارك على هذا الجهاز.</p></div>
+      <button class="ib" id="closeTheme">✕</button>
+    </div>
+    <div class="sect">أوضاع ذكية</div>
+    <div class="smart" id="smartModes"></div>
+    <div class="sect">الثيمات</div>
+    <div class="tgrid" id="tgrid"></div>
   </div>
 </div>
 
@@ -322,6 +398,13 @@ footer b{color:var(--acc)}
       <p class="sub" style="margin-bottom:6px">اكتب ما تريد بلغتك، وسأبحث لك في دليل مفتوح يضم آلاف القنوات المجانية بروابط حقيقية.</p></div>
       <button class="ib" id="closeDisc">✕</button>
     </div>
+    <div class="tabs dtabs" id="dTabs">
+      <button class="tab on" data-p="dpSearch">🔎 بحث ذكي</button>
+      <button class="tab" data-p="dpCountries">🌍 الدول</button>
+      <button class="tab" data-p="dpCats">🗂️ الفئات</button>
+      <button class="tab" data-p="dpGlobal">⭐ عالمية مشهورة</button>
+    </div>
+    <div class="pane on" id="dpSearch">
     <form class="dq" id="dForm">
       <input class="field" id="dq" placeholder="مثال: قنوات رياضية عُمانية، الجزيرة، قرآن كريم…" autocomplete="off" enterkeyhint="search">
       <button class="btn" id="dGo" type="submit">بحث</button>
@@ -332,6 +415,18 @@ footer b{color:var(--acc)}
       <button>قرآن كريم وقنوات دينية</button><button>كرتون للأطفال</button><button>قنوات خليجية</button>
       <button>وثائقي</button><button>الجزيرة</button><button>MBC</button>
     </div>
+    </div>
+    <div class="pane" id="dpCountries">
+      <input class="field" id="cFilter" placeholder="ابحث عن دولة…" style="direction:rtl;text-align:right">
+      <div id="cBox"></div>
+    </div>
+    <div class="pane" id="dpCats"><div id="catBox"></div></div>
+    <div class="pane" id="dpGlobal"><div id="gBox"></div></div>
+    <div class="filt">
+      <label><input type="checkbox" id="fGeo" checked> إخفاء المحجوبة جغرافياً</label>
+      <label><input type="checkbox" id="fHttps"> روابط آمنة https فقط</label>
+      <label><input type="checkbox" id="f247"> على مدار الساعة فقط</label>
+    </div>
     <div class="dsum" id="dSum"></div>
     <div class="res" id="dRes"></div>
     <details class="aiset" id="aiSet">
@@ -339,7 +434,7 @@ footer b{color:var(--acc)}
       <p>يعمل البحث الذكي مباشرةً بقاموس عربي مدمج. لفهم أعمق لأي طلب (أسماء قنوات غير شائعة، طلبات مركّبة)، أضف مفتاح Claude API من console.anthropic.com — يُحفظ على جهازك فقط ويُرسل إلى Anthropic وحدها.</p>
       <label>مفتاح API</label><input class="field" id="aiKey" type="password" placeholder="sk-ant-…" autocomplete="off">
       <label>النموذج</label><input class="field" id="aiModel" placeholder="claude-haiku-5-5">
-      <div class="row"><button class="btn ghost" id="aiSave">حفظ</button><button class="btn ghost" id="aiDel" style="color:#ffb0b0">حذف المفتاح</button></div>
+      <div class="row"><button class="btn ghost" id="aiSave">حفظ</button><button class="btn ghost" id="aiDel" style="color:var(--danger)">حذف المفتاح</button></div>
     </details>
   </div>
 </div>
@@ -413,7 +508,7 @@ const norm = s => (s||'').toLowerCase()
 const ADDED = 'قنواتي المضافة';
 function setChannels(list){
   if(list) S.base = list;
-  const all = [...(S.base || []), ...S.added.map(a => ({...a, group: ADDED}))];
+  const all = [...(S.base || []), ...S.added.map(a => ({...a, group: a.cg || ADDED}))];
   S.channels = all.map((c,i) => ({...c, i, n: norm(c.name + ' ' + c.group)}));
   const map = new Map();
   for(const c of S.channels) map.set(c.group, (map.get(c.group)||0) + 1);
@@ -648,7 +743,7 @@ $('#q').addEventListener('input', e => { clearTimeout(qt); qt = setTimeout(() =>
 /* ---------- Keyboard ---------- */
 document.addEventListener('keydown', e => {
   const typing = /INPUT|TEXTAREA/.test(document.activeElement.tagName);
-  if(e.key === 'Escape'){ if($('#discModal').classList.contains('show')) closeDisc(); else if($('#srcModal').classList.contains('show')) closeSrc(); else if(typing) document.activeElement.blur(); return; }
+  if(e.key === 'Escape'){ $('#themeModal').classList.remove('show'); if($('#discModal').classList.contains('show')) closeDisc(); else if($('#srcModal').classList.contains('show')) closeSrc(); else if(typing) document.activeElement.blur(); return; }
   if(typing) return;
   if(e.key === '/'){ e.preventDefault(); $('#q').focus(); }
   else if(e.key === 'ArrowDown' || e.key === 'PageDown'){ if(S.cur){ e.preventDefault(); step(1); } }
@@ -671,9 +766,13 @@ function closeSrc(){ $('#srcModal').classList.remove('show'); }
 $('#openSrc').onclick = openSrc; $('#closeSrc').onclick = closeSrc;
 $('#srcModal').onclick = e => { if(e.target.id === 'srcModal') closeSrc(); };
 document.querySelectorAll('.tab').forEach(t => t.onclick = () => {
-  document.querySelectorAll('.tab').forEach(x => x.classList.toggle('on', x === t));
-  document.querySelectorAll('.pane').forEach(p => p.classList.toggle('on', p.id === t.dataset.p));
+  const box = t.closest('.mbox');
+  box.querySelectorAll('.tab').forEach(x => x.classList.toggle('on', x === t));
+  box.querySelectorAll('.pane').forEach(p => p.classList.toggle('on', p.id === t.dataset.p));
   msg(null);
+  if(t.dataset.p === 'dpCountries') renderCountries();
+  if(t.dataset.p === 'dpCats') renderCatsBrowse();
+  if(t.dataset.p === 'dpGlobal') renderGlobal();
 });
 function msg(text, ok){ const m = $('#msg'); m.className = 'msg' + (text ? ' show ' + (ok ? 'ok' : 'bad') : ''); m.innerHTML = text || ''; }
 
@@ -727,6 +826,40 @@ $('#clearAll').onclick = async e => {
   $('#bClose').click(); setChannels([]); e.currentTarget.textContent = 'حذف القائمة'; closeSrc(); toast('تم حذف القائمة');
 };
 
+$('#addOne').onclick = () => {
+  const name = $('#oName').value.trim(), url = $('#oUrl').value.trim();
+  if(!name || !/^https?:\/\//i.test(url)){ msg('أدخل اسم القناة ورابطاً يبدأ بـ http:// أو https://'); return; }
+  if(isAdded(url)){ msg('هذه القناة مضافة مسبقاً.'); return; }
+  S.added.push({ name, url, logo: $('#oLogo').value.trim(), cg: $('#oGroup').value.trim() || '' , group:'' });
+  saveAdded(); msg(`أُضيفت «${esc(name)}» ✓`, true);
+  ['oName','oUrl','oLogo'].forEach(i => $('#'+i).value = '');
+};
+$('#testOne').onclick = () => { const url = $('#oUrl').value.trim(); if(!/^https?:\/\//i.test(url)){ msg('أدخل رابط البث أولاً.'); return; }
+  closeSrc(); play({ name: $('#oName').value.trim() || 'تجربة قناة', url, logo: $('#oLogo').value.trim(), group:'تجربة' }); };
+
+/* ---------- Theme picker ---------- */
+function renderThemes(){
+  const cur = window.themeMode;
+  const sm = $('#smartModes'); sm.innerHTML = '';
+  [['smart','🌗','ذكي حسب الوقت','فاتح نهاراً وهادئ ليلاً'],['system','📱','حسب الجهاز','يتبع وضع الجهاز الفاتح/الداكن']].forEach(([id,ic,n,d]) => {
+    const b = document.createElement('button'); b.className = 'tcard' + (cur === id ? ' on' : '');
+    b.innerHTML = `<span>${ic}</span><span><div class="tn">${n}</div><div class="td">${d}</div></span>`;
+    b.onclick = () => { applyTheme(id); renderThemes(); }; sm.append(b);
+  });
+  const g = $('#tgrid'); g.innerHTML = '';
+  for(const [id, t] of Object.entries(THEMES)){
+    const v = t.v, b = document.createElement('button'); b.className = 'tcard' + (cur === id ? ' on' : '');
+    b.innerHTML = `<div class="tprev" style="background:${v.bg}"><i style="background:${v.panel}"></i><i style="background:${v.panel2}"></i><b style="background:${v.acc}"></b><b style="background:${v.acc2}"></b></div>
+      <div class="tn">${t.name}</div><div class="td">${t.desc}</div>`;
+    b.onclick = () => { applyTheme(id); renderThemes(); }; g.append(b);
+  }
+}
+$('#openTheme').onclick = () => { renderThemes(); $('#themeModal').classList.add('show'); };
+$('#closeTheme').onclick = () => $('#themeModal').classList.remove('show');
+$('#themeModal').onclick = e => { if(e.target.id === 'themeModal') $('#themeModal').classList.remove('show'); };
+setInterval(() => { if(window.themeMode === 'smart' || window.themeMode === 'system') applyTheme(window.themeMode); }, 5 * 60 * 1000);
+try{ matchMedia('(prefers-color-scheme: light)').addEventListener('change', () => { if(window.themeMode === 'system') applyTheme('system'); }); }catch(e){}
+
 /* ---------- Utils ---------- */
 function esc(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 let tt; function toast(t){ const el = $('#toast'); el.textContent = t; el.classList.add('show'); clearTimeout(tt); tt = setTimeout(()=>el.classList.remove('show'), 1800); }
@@ -766,7 +899,9 @@ const NAME_WORDS = {'الجزيره':['al jazeera','aljazeera','jazeera'],'قن�
   'السنه':['sunnah'],'الاولى':['al oula','aloula'],'الكويت':[],'قطر':[]};
 const STOP = new Set(['قنوات','قناه','القنوات','القناه','ابحث','ابي','ابغى','ابغي','اريد','عن','في','من','و','لي','كل','على','مع','او','بث','مباشر','تلفزيون','تلفزيونيه','محطات','اعطني','هات','لل','ال','ذات','جيده','جوده','عاليه','channels','channel','tv','the','live']);
 
-const D = { idx:null, loading:null, last:[], filters:null, ai:{key:'',model:''} };
+const D = { idx:null, loading:null, last:[], filters:null, ai:{key:'',model:''}, opt:{geo:true, https:location.protocol === 'https:', full:false} };
+let DN = null; try{ DN = new Intl.DisplayNames(['ar'], {type:'region'}); }catch(e){}
+const ccName = cc => { if(!cc) return 'دولية'; if(CC_AR[cc]) return CC_AR[cc]; try{ const n = DN && DN.of(cc === 'uk' ? 'GB' : cc.toUpperCase()); if(n && n.toUpperCase() !== cc.toUpperCase()) return n; }catch(e){} return cc.toUpperCase(); };
 const compact = s => norm(s).replace(/[^\p{L}\p{N}]/gu,'');
 const flag = cc => { if(!cc || cc.length !== 2) return '🌐'; const c = cc === 'uk' ? 'GB' : cc.toUpperCase();
   return String.fromCodePoint(...[...c].map(ch => 0x1F1E6 + ch.charCodeAt(0) - 65)); };
@@ -850,6 +985,9 @@ function searchIdx(idx, f){
   for(const c of idx){
     if(f.countries.length && !f.countries.includes(c.cc)) continue;
     if(f.categories.length && !c.cats.some(x => f.categories.includes(x))) continue;
+    if(D.opt.geo && c.labels.includes('محجوبة جغرافياً')) continue;
+    if(D.opt.full && c.labels.includes('ليست على مدار الساعة')) continue;
+    if(D.opt.https && !c.url.startsWith('https:')) continue;
     let s = 0;
     if(kws.length){ const hit = kws.find(k => c.cn.includes(k)); if(!hit) continue; s += c.cn.startsWith(hit) ? 6 : 3; if(c.cn === hit) s += 4; }
     if(!c.labels.length) s += 2;
@@ -858,7 +996,7 @@ function searchIdx(idx, f){
     res.push([s, c]);
   }
   res.sort((a,b) => b[0] - a[0] || a[1].name.localeCompare(b[1].name));
-  return res.slice(0, 300).map(x => x[1]);
+  return res.slice(0, 500).map(x => x[1]);
 }
 
 async function discover(query){
@@ -872,29 +1010,93 @@ async function discover(query){
     let f;
     if(D.ai.key){ try{ f = await aiParse(query); }catch(e){ f = localParse(query); f.note = 'تعذّر الاتصال بالذكاء الاصطناعي (تحقق من المفتاح)، فاستخدمت البحث الذكي المدمج.'; } }
     else f = localParse(query);
-    const idx = await idxP;
-    D.filters = f; D.last = searchIdx(idx, f);
-    renderDisc();
+    await idxP;
+    await runFilters(f);
   }catch(e){
-    sum.innerHTML = '<span style="color:#ffb0b0">تعذّر تحميل دليل القنوات. تأكّد من اتصال الإنترنت ثم حاول مجدداً.</span>';
+    sum.innerHTML = '<span style="color:var(--danger)">تعذّر تحميل دليل القنوات. تأكّد من اتصال الإنترنت ثم حاول مجدداً.</span>';
   }finally{ go.disabled = false; }
 }
+
+async function runFilters(f){
+  const sum = $('#dSum');
+  if(!D.idx) sum.innerHTML = '<span>جارٍ تحميل دليل القنوات العالمي…</span>';
+  try{
+    const idx = await loadIndex();
+    D.filters = f; D.last = searchIdx(idx, f);
+    renderDisc();
+    if(innerWidth <= 820 || f.scroll) sum.scrollIntoView({behavior:'smooth', block:'start'});
+  }catch(e){ sum.innerHTML = '<span style="color:var(--danger)">تعذّر تحميل دليل القنوات. تأكّد من اتصال الإنترنت ثم حاول مجدداً.</span>'; }
+}
+
+/* Browse: countries, categories, curated global */
+const tile = (icon, name, n, fn) => { const b = document.createElement('button'); b.className = 'ctile';
+  b.innerHTML = `<span class="f">${icon}</span><span class="nm">${esc(name)}</span>${n != null ? `<b>${n.toLocaleString('ar')}</b>` : ''}`; b.onclick = fn; return b; };
+const sec = t => { const d = document.createElement('div'); d.className = 'gsec'; d.textContent = t; return d; };
+const grid = () => { const d = document.createElement('div'); d.className = 'cgrid'; return d; };
+async function withIdx(box){ if(D.idx) return D.idx; box.innerHTML = '<div class="count" style="padding:14px 4px">جارٍ تحميل دليل القنوات العالمي…</div>';
+  try{ return await loadIndex(); }catch(e){ box.innerHTML = '<div style="color:var(--danger);padding:14px 4px">تعذّر تحميل الدليل. تحقق من الإنترنت.</div>'; return null; } }
+async function renderCountries(){
+  const box = $('#cBox'); const idx = await withIdx(box); if(!idx) return;
+  const cnt = new Map(); for(const c of idx) if(c.cc) cnt.set(c.cc, (cnt.get(c.cc)||0) + 1);
+  const q = norm($('#cFilter').value.trim());
+  const all = [...cnt.entries()].map(([cc,n]) => ({cc, n, name: ccName(cc)})).filter(x => !q || norm(x.name).includes(q) || x.cc === q);
+  box.innerHTML = '';
+  const arab = all.filter(x => ARAB.includes(x.cc)).sort((a,b) => ARAB.indexOf(a.cc) - ARAB.indexOf(b.cc));
+  const rest = all.filter(x => !ARAB.includes(x.cc)).sort((a,b) => b.n - a.n);
+  const go = x => () => runFilters({countries:[x.cc], categories:[], keywords:[], summary:`قنوات ${x.name}`, scroll:1});
+  if(arab.length){ box.append(sec('الدول العربية')); const g = grid(); arab.forEach(x => g.append(tile(flag(x.cc), x.name, x.n, go(x)))); box.append(g); }
+  if(rest.length){ box.append(sec('دول العالم')); const g = grid(); rest.forEach(x => g.append(tile(flag(x.cc), x.name, x.n, go(x)))); box.append(g); }
+  if(!all.length) box.innerHTML = '<div class="count" style="padding:14px 4px">لا توجد دولة بهذا الاسم.</div>';
+}
+$('#cFilter').addEventListener('input', () => renderCountries());
+const CAT_ICON = {news:'📰',sports:'⚽',kids:'🧸',animation:'🎨',religious:'🕌',movies:'🎬',series:'🎭',music:'🎵',documentary:'🌍',education:'🎓',
+  cooking:'🍳',entertainment:'🎉',business:'📈',science:'🔬',travel:'✈️',weather:'⛅',comedy:'😄',culture:'🏛️',family:'👨‍👩‍👧',general:'📺',
+  legislative:'🏛️',lifestyle:'🌿',outdoor:'🏕️',shop:'🛍️',auto:'🚗',classic:'📼',relax:'🧘',public:'🏢',interactive:'🕹️',undefined:'❔'};
+async function renderCatsBrowse(){
+  const box = $('#catBox'); const idx = await withIdx(box); if(!idx) return;
+  const cnt = new Map(); for(const c of idx) for(const x of c.cats) cnt.set(x, (cnt.get(x)||0) + 1);
+  const cats = [...cnt.entries()].filter(([x]) => x !== 'xxx').sort((a,b) => b[1] - a[1]);
+  box.innerHTML = '';
+  const mk = (title, countries) => { box.append(sec(title)); const g = grid();
+    cats.forEach(([x,n]) => g.append(tile(CAT_ICON[x] || '📺', CAT_AR[x] || x, countries ? null : n,
+      () => runFilters({countries: countries || [], categories:[x], keywords:[], summary:`${CAT_AR[x] || x}${countries ? ' — عربية' : ' — من كل العالم'}`, scroll:1})))); box.append(g); };
+  mk('من كل العالم'); mk('عربية فقط', ARAB);
+}
+const GLOBAL = [
+  ['📰 أخبار عالمية', [['Al Jazeera English',['aljazeeraenglish']],['BBC News',['bbcnews']],['CNN',['cnn']],['France 24',['france24']],['DW',['dw ']],
+    ['Euronews',['euronews']],['Sky News',['skynews']],['Bloomberg',['bloomberg']],['TRT World',['trtworld']],['CGTN',['cgtn']],['NHK World',['nhkworld']],['ABC News',['abcnews']]]],
+  ['📡 أخبار عربية', [['الجزيرة',['aljazeera']],['العربية',['alarabiya']],['الحدث',['alhadath']],['سكاي نيوز عربية',['skynewsarabia']],['الشرق',['asharq']],
+    ['فرانس 24 عربي',['france24arabic','france24ar']],['BBC عربي',['bbcarabic']],['DW عربية',['dwarabic','dwarabia']],['TRT عربي',['trtarabi']],['RT عربي',['rtarabic']]]],
+  ['🌍 وثائقي وعلوم وسفر', [['NASA TV',['nasa']],['Red Bull TV',['redbull']],['Love Nature',['lovenature']],['Travel XP',['travelxp']],['Documentary',['documentary']],['Smithsonian',['smithsonian']]]],
+  ['⚽ رياضة', [['Red Bull TV',['redbull']],['beIN (المجانية)',['bein']],['Alkass',['alkass']],['Abu Dhabi Sports',['adsports','abudhabisports']],['Oman Sports',['omansports']],['Saudi Sports',['ssc','saudisport']]]],
+  ['🕌 قرآن وديني', [['قناة القرآن (مكة)',['quran','makkah']],['قناة السنة (المدينة)',['sunnah']],['المجد',['almajd']],['اقرأ',['iqraa']],['الرسالة',['resalah']]]],
+  ['🧸 أطفال', [['Spacetoon',['spacetoon']],['ماجد',['majid']],['طيور الجنة',['toyor']],['Cartoon',['cartoon']],['Baby TV',['babytv']]]]
+];
+function renderGlobal(){
+  const box = $('#gBox'); if(box.childElementCount) return;
+  for(const [title, items] of GLOBAL){ box.append(sec(title)); const g = grid();
+    items.forEach(([n,k]) => g.append(tile('▶', n, null, () => runFilters({countries:[], categories:[], keywords:k, summary:n, scroll:1})))); box.append(g); }
+}
+[['fGeo','geo'],['fHttps','https'],['f247','full']].forEach(([id,k]) => {
+  const el = $('#'+id); el.checked = D.opt[k];
+  el.onchange = () => { D.opt[k] = el.checked; set('dopt', D.opt); if(D.filters) runFilters({...D.filters, scroll:0}); };
+});
 
 function describe(f){
   const parts = [];
   if(f.categories.length) parts.push(f.categories.map(c => CAT_AR[c] || c).join('، '));
-  if(f.countries.length) parts.push(f.countries.length >= 15 ? 'الدول العربية' : f.countries.map(c => CC_AR[c] || c.toUpperCase()).join('، '));
+  if(f.countries.length) parts.push(f.countries.length >= 15 ? 'الدول العربية' : f.countries.map(ccName).join('، '));
   if(f.keywords.length) parts.push('«' + f.keywords.slice(0,3).join('، ') + '»');
   return parts.join(' · ');
 }
 function renderDisc(){
   const f = D.filters, list = D.last, sum = $('#dSum'), box = $('#dRes');
   const by = f.by === 'ai' ? '✨ فهم الذكاء الاصطناعي' : '🔎 البحث الذكي';
-  let head = `<span>${by}: <b>${esc(f.summary || describe(f) || '—')}</b> — ${list.length.toLocaleString('ar')}${list.length >= 300 ? '+' : ''} نتيجة</span>`;
+  let head = `<span>${by}: <b>${esc(f.summary || describe(f) || '—')}</b> — ${list.length.toLocaleString('ar')}${list.length >= 500 ? '+' : ''} نتيجة</span>`;
   const notAdded = list.filter(c => !isAdded(c.url));
   if(notAdded.length > 1) head += `<button class="btn ghost" id="addAll" style="height:36px">+ إضافة الكل (${notAdded.length.toLocaleString('ar')})</button>`;
   sum.innerHTML = head;
-  if(f.note) sum.innerHTML += `<div style="width:100%;color:#ffcf7a">${esc(f.note)}</div>`;
+  if(f.note) sum.innerHTML += `<div style="width:100%;color:var(--warn)">${esc(f.note)}</div>`;
   const aa = $('#addAll'); if(aa) aa.onclick = () => { notAdded.forEach(c => addCh(c, true)); saveAdded(); renderDisc(); toast(`أُضيفت ${notAdded.length.toLocaleString('ar')} قناة ✨`); };
   box.innerHTML = '';
   if(!list.length){
@@ -914,7 +1116,7 @@ function resItem(c){
   const d = document.createElement('div'); d.className = 'ritem';
   const lg = document.createElement('div'); lg.className = 'rlogo'; lg.append(logoEl(c));
   const inf = document.createElement('div'); inf.className = 'rinfo';
-  const tags = [`<span class="tg">${flag(c.cc)} ${esc(CC_AR[c.cc] || c.cc.toUpperCase() || 'دولية')}</span>`,
+  const tags = [`<span class="tg">${flag(c.cc)} ${esc(ccName(c.cc))}</span>`,
     ...c.cats.slice(0,2).map(x => `<span class="tg">${esc(CAT_AR[x] || x)}</span>`),
     c.q ? `<span class="tg">${c.q >= 720 ? 'HD ' : ''}${c.q}p</span>` : '',
     ...c.labels.map(l => `<span class="tg w">${l}</span>`)].join('');
@@ -928,7 +1130,7 @@ function resItem(c){
   d.append(lg, inf, pv, ad);
   return d;
 }
-const asCh = c => ({ name:c.name, logo:c.logo, url:c.url, group: [CC_AR[c.cc], ...c.cats.slice(0,1).map(x => CAT_AR[x] || x)].filter(Boolean).join(' · ') || 'دليل مفتوح' });
+const asCh = c => ({ name:c.name, logo:c.logo, url:c.url, group: [ccName(c.cc), ...c.cats.slice(0,1).map(x => CAT_AR[x] || x)].filter(Boolean).join(' · ') || 'دليل مفتوح' });
 const isAdded = url => S.added.some(a => a.url === url);
 function addCh(c){ if(!isAdded(c.url)) S.added.push(asCh(c)); }
 function saveAdded(){ set('added', S.added); setChannels(); }
@@ -953,6 +1155,7 @@ $('#aiDel').onclick = async () => { D.ai = {key:'', model:D.ai.model}; $('#aiKey
   S.added = (await get('added')) || [];
   S.meta = (await get('meta')) || null;
   D.ai = (await get('ai')) || {key:'', model:''};
+  const op = await get('dopt'); if(op){ Object.assign(D.opt, op); $('#fGeo').checked = D.opt.geo; $('#fHttps').checked = D.opt.https; $('#f247').checked = D.opt.full; }
   $('#aiKey').value = D.ai.key || ''; $('#aiModel').value = D.ai.model || '';
   const text = await get('playlist');
   setChannels(text ? parseM3U(text) : []);
