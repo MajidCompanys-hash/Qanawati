@@ -211,6 +211,46 @@ details.aiset p{font-size:12px;color:var(--muted);line-height:1.7}
 .back{font-size:13px;color:var(--acc2);padding:4px 0}
 select.field{direction:rtl;text-align:right}
 
+/* Lists, privacy, selection */
+.tright{display:flex;align-items:center;gap:10px}
+.hbtn.sm{height:34px;padding:0 12px;font-size:13px}.hbtn.on{border-color:var(--acc2);color:var(--acc2)}
+#privBadge{border-color:var(--acc2)}
+.cat .more{opacity:0;padding:0 4px 0 2px;font-weight:800;color:var(--muted);transition:.15s}
+.cat:hover .more,.cat.on .more{opacity:.8}
+.cat span:first-child{flex:1;text-align:right}
+.cat.addl{color:var(--acc2);font-size:13.5px}
+.badges{position:absolute;top:14px;right:14px;display:flex;gap:4px}
+.bdg{font-size:10.5px;padding:2px 7px;border-radius:9px;background:var(--acc);color:var(--onacc);font-weight:800;line-height:1.5}
+.bdg.ic{background:var(--starbg);color:var(--text);font-weight:400;padding:2px 5px}
+.mbtn{position:absolute;top:14px;left:48px;width:30px;height:30px;border-radius:9px;display:grid;place-items:center;
+  background:var(--starbg);color:var(--text);opacity:0;transition:.15s;font-weight:800}
+.card:hover .mbtn{opacity:1}
+.chk{display:none;position:absolute;inset:auto 14px 14px auto;top:14px;right:auto;left:14px;width:28px;height:28px;border-radius:50%;
+  border:2px solid var(--line2);background:var(--panel);color:transparent;place-items:center;font-weight:800}
+.card.selmode .chk{display:grid}.card.selmode .star,.card.selmode .mbtn{display:none}
+.card.sel{border-color:var(--acc2);box-shadow:0 0 0 2px var(--acc2)}
+.card.sel .chk{background:var(--acc2);border-color:var(--acc2);color:var(--onacc)}
+.sheetm{place-items:center}
+.sheetbox{max-width:420px;padding:14px}
+.sheethead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px}
+.sheethead h3{font-size:17px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.act{width:100%;display:flex;align-items:center;gap:12px;padding:12px;border-radius:11px;text-align:right;transition:.12s}
+.act:hover{background:var(--panel2)}.act .ai{width:26px;text-align:center;font-size:18px}.act .al{flex:1}
+.act .ac{color:var(--acc2);font-weight:800}.act.danger{color:var(--danger)}
+.note{font-size:13px;color:var(--muted);line-height:1.8;padding:10px 12px;background:var(--inset);border-radius:11px;margin:4px 0}
+.note b{color:var(--text)}
+.field.pin{direction:ltr;text-align:center;font-size:28px;letter-spacing:12px;height:58px;margin-top:6px}
+.pinmsg{color:var(--danger);font-size:13px;min-height:20px;margin-top:8px}
+.shake{animation:shake .35s}@keyframes shake{25%{transform:translateX(-8px)}50%{transform:translateX(8px)}75%{transform:translateX(-4px)}}
+.selbar{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom));transform:translate(-50%,140%);z-index:40;
+  background:var(--panel);border:1px solid var(--line2);border-radius:16px;padding:8px 10px;display:flex;align-items:center;gap:10px;
+  box-shadow:0 10px 40px rgba(0,0,0,.3);transition:transform .25s;max-width:calc(100% - 20px)}
+.selbar.show{transform:translate(-50%,0)}
+.selbar>span{font-size:13px;color:var(--muted);white-space:nowrap;padding-inline:4px}
+.sbtns{display:flex;gap:4px;overflow-x:auto}
+.sbtns button{white-space:nowrap;padding:8px 10px;border-radius:10px;font-size:13px;background:var(--panel2)}
+.sbtns button:hover{background:var(--inset)}.sbtns .done{background:var(--acc);color:var(--onacc);font-weight:700}
+
 footer{text-align:center;color:var(--muted);font-size:12px;padding:10px 0 calc(24px + env(safe-area-inset-bottom))}
 footer b{color:var(--acc)}
 
@@ -242,6 +282,14 @@ footer b{color:var(--acc)}
   .grid{grid-template-columns:repeat(auto-fill,minmax(108px,1fr));gap:9px}
   .card{padding:7px}.cname{font-size:12.5px}.cgrp{display:none}
   .star{top:10px;left:10px;width:26px;height:26px;opacity:1;background:var(--starbg)}
+  .mbtn{top:10px;left:40px;width:26px;height:26px;opacity:1}
+  .badges{top:10px;right:10px}.chk{top:10px;left:10px}
+  .cat .more{opacity:.6}
+  .sheetm{place-items:end center;padding:0}
+  .sheetbox{max-width:none;border-radius:20px 20px 0 0;padding-bottom:calc(16px + env(safe-area-inset-bottom))}
+  .selbar{flex-direction:column;align-items:stretch;gap:6px;width:calc(100% - 20px)}
+  .sbtns{flex-wrap:wrap}.sbtns button{flex:1 1 30%}
+  .toolbar h1{font-size:17px}
 }
 </style>
 <script>
@@ -279,6 +327,7 @@ window.applyTheme = function(mode){
     <input id="q" type="search" placeholder="ابحث عن قناة…  (اضغط / )" autocomplete="off">
   </div>
   <span class="count h" id="hcount"></span>
+  <button class="hbtn" id="privBadge" title="قفل الوضع الخاص" style="display:none">🔓</button>
   <button class="hbtn" id="openTheme" title="المظهر والألوان">🎨</button>
   <button class="hbtn ai" id="openDisc" title="اكتشاف القنوات بالذكاء الاصطناعي">✨ <span class="t">اكتشاف القنوات</span></button>
   <button class="hbtn" id="openSrc" title="قائمة القنوات">
@@ -311,7 +360,7 @@ window.applyTheme = function(mode){
       </div>
     </section>
 
-    <div class="toolbar" id="toolbar"><h1 id="title">كل القنوات</h1><span class="count" id="lcount"></span></div>
+    <div class="toolbar" id="toolbar"><h1 id="title">كل القنوات</h1><div class="tright"><span class="count" id="lcount"></span><button class="hbtn sm" id="bSelect">☑️ تحديد</button></div></div>
     <div class="grid" id="grid"></div>
     <div class="sentinel" id="sentinel"></div>
     <div id="empty"></div>
@@ -439,6 +488,36 @@ window.applyTheme = function(mode){
   </div>
 </div>
 
+<!-- Action sheet -->
+<div class="modal sheetm" id="sheet"><div class="mbox sheetbox">
+  <div class="sheethead"><h3 id="sheetTitle"></h3><button class="ib" id="sheetClose">✕</button></div>
+  <div id="sheetBody"></div>
+</div></div>
+
+<!-- Text prompt -->
+<div class="modal" id="askModal"><form class="mbox" id="askForm" style="max-width:420px">
+  <h3 id="askTitle"></h3>
+  <input class="field" id="askInput" style="direction:rtl;text-align:right;margin-top:12px" autocomplete="off">
+  <div class="row" style="justify-content:flex-end"><button type="button" class="btn ghost" id="askCancel">إلغاء</button><button class="btn" type="submit">حفظ</button></div>
+</form></div>
+
+<!-- PIN -->
+<div class="modal" id="pinModal"><form class="mbox pinbox" id="pinForm" style="max-width:380px;text-align:center">
+  <h3 id="pinTitle"></h3><p class="sub" id="pinSub"></p>
+  <input class="field pin" id="pinInput" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="8" autocomplete="off">
+  <div class="pinmsg" id="pinMsg"></div>
+  <div class="row" style="justify-content:center"><button type="button" class="btn ghost" id="pinCancel">إلغاء</button><button class="btn" type="submit">متابعة</button></div>
+</form></div>
+
+<!-- Multi-select bar -->
+<div class="selbar" id="selBar">
+  <span id="selCount"></span>
+  <div class="sbtns">
+    <button id="sAll">☑️ الكل</button><button id="sList">📁 إلى قائمة</button><button id="sFav">⭐ مفضلة</button>
+    <button id="sLock">🔒 قفل</button><button id="sHide">🙈 إخفاء</button><button id="sDone" class="done">تم</button>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
@@ -473,7 +552,7 @@ async function set(k, v){
 }
 
 /* ---------- State ---------- */
-const S = { base:[], added:[], channels:[], cats:[], cat:'__all', q:'', favs:new Set(), recent:[], list:[], shown:0, cur:null, meta:null };
+const S = { base:[], added:[], all:[], sel:new Set(), selMode:false, channels:[], cats:[], cat:'__all', q:'', favs:new Set(), recent:[], list:[], shown:0, cur:null, meta:null };
 
 /* ---------- M3U parsing ---------- */
 function parseM3U(text){
@@ -506,41 +585,79 @@ const norm = s => (s||'').toLowerCase()
 
 /* ---------- Build data ---------- */
 const ADDED = 'قنواتي المضافة';
+const SYS = ['__all','__fav','__recent','__new','__private'];
+/* Personal organisation & privacy */
+const P = { lists:[], memb:{}, lock:new Set(), hide:new Set(), lockCats:new Set(), hideCats:new Set(), pin:null, open:false, seen:{}, seenInit:false };
+const listsOf = url => P.memb[url] || [];
+const isHidden = c => P.hide.has(c.url) || P.hideCats.has(c.group) || listsOf(c.url).some(id => P.hideCats.has('L:' + id));
+const isLocked = c => P.lock.has(c.url) || P.lockCats.has(c.group) || listsOf(c.url).some(id => P.lockCats.has('L:' + id));
+const isNew = c => (P.seen[c.url] || 0) > Date.now() - 7 * 864e5;
+function savePriv(){ set('priv', { lists:P.lists, memb:P.memb, lock:[...P.lock], hide:[...P.hide], lockCats:[...P.lockCats], hideCats:[...P.hideCats], pin:P.pin }); }
+const visibleLists = () => P.lists.filter(l => P.open || !P.hideCats.has('L:' + l.id));
+
 function setChannels(list){
   if(list) S.base = list;
   const all = [...(S.base || []), ...S.added.map(a => ({...a, group: a.cg || ADDED}))];
-  S.channels = all.map((c,i) => ({...c, i, n: norm(c.name + ' ' + c.group)}));
+  S.all = all.map((c,i) => ({...c, i, n: norm(c.name + ' ' + c.group)}));
+  let ch = false; const now = Date.now();
+  for(const c of S.all) if(!(c.url in P.seen)){ P.seen[c.url] = P.seenInit ? now : 0; ch = true; }
+  if(S.all.length && !P.seenInit){ P.seenInit = true; ch = true; }
+  if(ch) set('seen', { m:P.seen, init:P.seenInit });
+  refresh();
+}
+function refresh(){
+  S.channels = P.open ? S.all : S.all.filter(c => !isHidden(c));
   const map = new Map();
   for(const c of S.channels) map.set(c.group, (map.get(c.group)||0) + 1);
   S.cats = [...map.entries()];
-  if(S.cat !== '__all' && S.cat !== '__fav' && S.cat !== '__recent' && !map.has(S.cat)) S.cat = '__all';
+  const ok = (SYS.includes(S.cat) && (S.cat !== '__private' || P.open)) || map.has(S.cat) || visibleLists().some(l => 'L:' + l.id === S.cat);
+  if(!ok) S.cat = '__all';
   renderCats(); renderList();
   $('#hcount').textContent = S.channels.length ? S.channels.length.toLocaleString('ar') + ' قناة' : '';
+  $('#privBadge').style.display = P.open ? '' : 'none';
 }
 
-/* ---------- Categories ---------- */
-function catBtn(id, label, n, icon){
+/* ---------- Sidebar ---------- */
+function catBtn(id, label, n, icon, menu){
   const b = document.createElement('button');
   b.className = 'cat' + (S.cat === id ? ' on' : '');
-  b.innerHTML = `<span>${icon ? icon + ' ' : ''}${esc(label)}</span><b>${n.toLocaleString('ar')}</b>`;
-  b.onclick = () => { S.cat = id; renderCats(); renderList(); window.scrollTo({top:0,behavior:'smooth'}); };
+  const marks = (P.hideCats.has(id) ? ' 🙈' : '') + (P.lockCats.has(id) ? ' 🔒' : '');
+  b.innerHTML = `<span>${icon ? icon + ' ' : ''}${esc(label)}${marks}</span><b>${n.toLocaleString('ar')}</b>`;
+  const pick = () => { S.cat = id; renderCats(); renderList(); window.scrollTo({top:0,behavior:'smooth'}); };
+  b.onclick = () => (P.lockCats.has(id) && !P.open) ? askPin(pick) : pick();
+  if(menu){
+    const m = document.createElement('span'); m.className = 'more'; m.textContent = '⋯'; m.title = 'خيارات';
+    m.onclick = e => { e.stopPropagation(); catMenu(id, label); };
+    b.append(m); longPress(b, () => catMenu(id, label));
+  }
   return b;
 }
 function renderCats(){
   const a = $('#cats'); a.innerHTML = '';
-  if(!S.channels.length){ a.style.display = 'none'; return; }
+  if(!S.all || !S.all.length){ a.style.display = 'none'; return; }
   a.style.display = '';
   a.append(catBtn('__all','كل القنوات',S.channels.length,'📺'));
   a.append(catBtn('__fav','المفضلة',favChannels().length,'⭐'));
   a.append(catBtn('__recent','شاهدت مؤخراً',recentChannels().length,'🕘'));
-  const sep = document.createElement('div'); sep.className='sep'; a.append(sep);
-  const t = document.createElement('div'); t.className='cat-title'; t.textContent='الفئات'; a.append(t);
-  for(const [g,n] of S.cats) a.append(catBtn(g,g,n, g === ADDED ? '✨' : ''));
+  const nn = newChannels().length; if(nn) a.append(catBtn('__new','أُضيفت مؤخراً',nn,'🆕'));
+  if(P.open) a.append(catBtn('__private','الخاصة',privateChannels().length,'🔐'));
+  a.append(el('div','sep'));
+  const t = el('div','cat-title'); t.textContent = 'قوائمي'; a.append(t);
+  const cnt = {}; for(const c of S.channels) for(const id of listsOf(c.url)) cnt[id] = (cnt[id]||0) + 1;
+  for(const l of visibleLists()) a.append(catBtn('L:' + l.id, l.name, cnt[l.id] || 0, l.icon || '📁', true));
+  const nb = el('button','cat addl'); nb.innerHTML = '<span>＋ قائمة جديدة</span>'; nb.onclick = () => newList(); a.append(nb);
+  a.append(el('div','sep'));
+  const t2 = el('div','cat-title'); t2.textContent = 'الفئات'; a.append(t2);
+  for(const [g,n] of S.cats) a.append(catBtn(g,g,n, g === ADDED ? '✨' : '', true));
   const on = a.querySelector('.cat.on'); if(on && innerWidth <= 820) on.scrollIntoView({inline:'center',block:'nearest'});
 }
+const el = (tag, cls) => { const d = document.createElement(tag); if(cls) d.className = cls; return d; };
 const byUrl = () => { const m = new Map(); for(const c of S.channels) m.set(c.url, c); return m; };
 function favChannels(){ return S.channels.filter(c => S.favs.has(c.url)); }
 function recentChannels(){ const m = byUrl(); return S.recent.map(u => m.get(u)).filter(Boolean); }
+function newChannels(){ return S.channels.filter(c => (P.seen[c.url]||0) > 0).sort((a,b) => P.seen[b.url] - P.seen[a.url]); }
+function privateChannels(){ return S.all.filter(c => isHidden(c) || isLocked(c)); }
+const listName = id => { const l = P.lists.find(x => 'L:' + x.id === id); return l ? l.name : id; };
 
 /* ---------- Channel grid ---------- */
 function currentList(){
@@ -548,20 +665,25 @@ function currentList(){
   if(S.cat === '__all') l = S.channels;
   else if(S.cat === '__fav') l = favChannels();
   else if(S.cat === '__recent') l = recentChannels();
+  else if(S.cat === '__new') l = newChannels();
+  else if(S.cat === '__private') l = privateChannels();
+  else if(S.cat.startsWith('L:')){ const id = S.cat.slice(2); l = S.channels.filter(c => listsOf(c.url).includes(id)); }
   else l = S.channels.filter(c => c.group === S.cat);
   const q = norm(S.q.trim());
   if(q){ const parts = q.split(' '); l = l.filter(c => parts.every(p => c.n.includes(p))); }
   return l;
 }
+const TITLES = {__all:'كل القنوات', __fav:'المفضلة', __recent:'شاهدت مؤخراً', __new:'أُضيفت مؤخراً', __private:'القنوات الخاصة (المخفية والمقفلة)'};
 function renderList(){
   S.list = currentList(); S.shown = 0;
   $('#grid').innerHTML = '';
-  const title = S.cat === '__all' ? 'كل القنوات' : S.cat === '__fav' ? 'المفضلة' : S.cat === '__recent' ? 'شاهدت مؤخراً' : S.cat;
+  const title = TITLES[S.cat] || (S.cat.startsWith('L:') ? listName(S.cat) : S.cat);
   $('#title').textContent = S.q ? `نتائج البحث في «${title}»` : title;
   $('#lcount').textContent = S.channels.length ? S.list.length.toLocaleString('ar') + ' قناة' : '';
-  $('#toolbar').style.display = S.channels.length ? '' : 'none';
+  $('#toolbar').style.display = S.all && S.all.length ? '' : 'none';
   renderEmpty();
   more();
+  updateSelBar();
 }
 function more(){
   if(S.shown >= S.list.length) return;
@@ -579,23 +701,37 @@ function logoEl(c){
   return iniEl(c);
 }
 function iniEl(c){ const d = document.createElement('div'); d.className='ini'; d.textContent = initials(c.name); return d; }
+let RTF = null; try{ RTF = new Intl.RelativeTimeFormat('ar', {numeric:'auto'}); }catch(e){}
+function ago(ts){ const s = (Date.now() - ts) / 1000; if(!RTF) return '';
+  if(s < 3600) return RTF.format(-Math.max(1, Math.round(s/60)), 'minute');
+  if(s < 86400) return RTF.format(-Math.round(s/3600), 'hour');
+  return RTF.format(-Math.round(s/86400), 'day'); }
 function card(c){
   const d = document.createElement('div');
-  d.className = 'card' + (S.cur && S.cur.url === c.url ? ' on' : '');
+  d.className = 'card' + (S.cur && S.cur.url === c.url ? ' on' : '') + (S.sel.has(c.url) ? ' sel' : '') + (S.selMode ? ' selmode' : '');
   d.dataset.url = c.url; d.tabIndex = 0;
-  const th = document.createElement('div'); th.className='thumb'; th.append(logoEl(c));
-  const nm = document.createElement('div'); nm.className='cname'; nm.textContent=c.name; nm.title=c.name;
-  const gp = document.createElement('div'); gp.className='cgrp'; gp.textContent=c.group;
-  const st = document.createElement('button'); st.className='star' + (S.favs.has(c.url)?' on':''); st.textContent='★'; st.title='المفضلة';
+  const th = el('div','thumb'); th.append(logoEl(c));
+  const nm = el('div','cname'); nm.textContent = c.name; nm.title = c.name;
+  const gp = el('div','cgrp'); gp.textContent = (S.cat === '__new' && P.seen[c.url]) ? 'أُضيفت ' + ago(P.seen[c.url]) : c.group;
+  const bd = el('div','badges');
+  if(isNew(c)) bd.insertAdjacentHTML('beforeend','<span class="bdg">جديد</span>');
+  if(isLocked(c)) bd.insertAdjacentHTML('beforeend','<span class="bdg ic">🔒</span>');
+  if(P.open && isHidden(c)) bd.insertAdjacentHTML('beforeend','<span class="bdg ic">🙈</span>');
+  const st = el('button','star' + (S.favs.has(c.url)?' on':'')); st.textContent = '★'; st.title = 'المفضلة';
   st.onclick = e => { e.stopPropagation(); toggleFav(c); st.classList.toggle('on', S.favs.has(c.url)); };
-  d.append(th, nm, gp, st);
-  d.onclick = () => play(c);
-  d.onkeydown = e => { if(e.key === 'Enter') play(c); };
+  const mb = el('button','mbtn'); mb.textContent = '⋯'; mb.title = 'خيارات القناة';
+  mb.onclick = e => { e.stopPropagation(); cardMenu(c); };
+  const ck = el('div','chk'); ck.textContent = '✓';
+  d.append(th, nm, gp, bd, st, mb, ck);
+  d.onclick = () => S.selMode ? toggleSel(c, d) : play(c);
+  d.onkeydown = e => { if(e.key === 'Enter') d.onclick(); };
+  d.oncontextmenu = e => { e.preventDefault(); cardMenu(c); };
+  longPress(d, () => { if(!S.selMode){ S.selMode = true; S.sel.clear(); renderList(); } const n = document.querySelector(`.card[data-url="${CSS.escape(c.url)}"]`); toggleSel(c, n); });
   return d;
 }
 function renderEmpty(){
   const e = $('#empty');
-  if(!S.channels.length){
+  if(!S.all || !S.all.length){
     e.innerHTML = `<div class="empty"><div class="big">📡</div><h2>أهلاً بك في «قنواتي»</h2>
       <p>أضف رابط اشتراك الـ IPTV أو ملف M3U لتظهر قنواتك هنا مرتّبة حسب الفئات.</p>
       <div class="row" style="justify-content:center"><button class="btn" id="startBtn">إضافة قائمة القنوات</button>
@@ -603,10 +739,204 @@ function renderEmpty(){
     $('#startBtn').onclick = openSrc;
     $('#startAi').onclick = openDisc;
   } else if(!S.list.length){
-    e.innerHTML = `<div class="empty"><div class="big">${S.cat==='__fav'?'⭐':'🔍'}</div><h2>${S.q ? 'لا توجد نتائج' : S.cat==='__fav' ? 'لا توجد قنوات مفضلة بعد' : 'لا توجد قنوات هنا'}</h2>
-      <p>${S.cat==='__fav' && !S.q ? 'اضغط النجمة ★ على أي قناة لإضافتها.' : ''}</p></div>`;
+    const L = S.cat.startsWith('L:');
+    e.innerHTML = `<div class="empty"><div class="big">${S.cat==='__fav'?'⭐':L?'📁':'🔍'}</div><h2>${S.q ? 'لا توجد نتائج' : S.cat==='__fav' ? 'لا توجد قنوات مفضلة بعد' : L ? 'القائمة فارغة' : 'لا توجد قنوات هنا'}</h2>
+      <p>${S.q ? '' : S.cat==='__fav' ? 'اضغط النجمة ★ على أي قناة لإضافتها.' : L ? 'اضغط ⋯ على أي قناة ثم «إضافة إلى قائمة»، أو استخدم «تحديد» لإضافة عدة قنوات دفعة واحدة.' : ''}</p></div>`;
   } else e.innerHTML = '';
 }
+
+/* ---------- Long press helper ---------- */
+function longPress(node, fn){
+  let t = null, moved = false;
+  node.addEventListener('touchstart', e => { moved = false; t = setTimeout(() => { t = null; node._lp = Date.now(); fn(); }, 550); }, {passive:true});
+  node.addEventListener('touchmove', () => { moved = true; clearTimeout(t); }, {passive:true});
+  node.addEventListener('touchend', e => { clearTimeout(t); if(node._lp && Date.now() - node._lp < 600){ e.preventDefault(); } });
+  node.addEventListener('click', e => { if(node._lp && Date.now() - node._lp < 700){ e.stopImmediatePropagation(); e.preventDefault(); node._lp = 0; } }, true);
+}
+
+/* ---------- Action sheet & dialogs ---------- */
+function sheet(title, items){
+  $('#sheetTitle').textContent = title;
+  const box = $('#sheetBody'); box.innerHTML = '';
+  for(const it of items){
+    if(it === '-'){ box.append(el('div','sep')); continue; }
+    if(it.note){ const n = el('div','note'); n.innerHTML = it.note; box.append(n); continue; }
+    const b = el('button','act' + (it.danger ? ' danger' : ''));
+    b.innerHTML = `<span class="ai">${it.icon || ''}</span><span class="al">${esc(it.label)}</span>${it.check != null ? `<span class="ac">${it.check ? '✓' : ''}</span>` : ''}`;
+    b.onclick = () => { if(!it.keep) closeSheet(); it.fn(b); };
+    box.append(b);
+  }
+  $('#sheet').classList.add('show');
+}
+function closeSheet(){ $('#sheet').classList.remove('show'); }
+$('#sheet').onclick = e => { if(e.target.id === 'sheet') closeSheet(); };
+$('#sheetClose').onclick = closeSheet;
+
+let askCb = null;
+function ask(title, value, cb, placeholder){
+  $('#askTitle').textContent = title; const i = $('#askInput'); i.value = value || ''; i.placeholder = placeholder || '';
+  askCb = cb; $('#askModal').classList.add('show'); setTimeout(() => i.focus(), 60);
+}
+$('#askForm').onsubmit = e => { e.preventDefault(); const v = $('#askInput').value.trim(); if(!v) return; $('#askModal').classList.remove('show'); askCb && askCb(v); };
+$('#askCancel').onclick = () => $('#askModal').classList.remove('show');
+
+/* ---------- PIN (privacy) ---------- */
+function hashPin(p){
+  let h1 = 0xdeadbeef ^ p.length, h2 = 0x41c6ce57 ^ p.length; const s = 'qanawati:' + p;
+  for(let r = 0; r < 3000; r++){
+    for(let i = 0; i < s.length; i++){ const ch = s.charCodeAt(i) + r; h1 = Math.imul(h1 ^ ch, 2654435761); h2 = Math.imul(h2 ^ ch, 1597334677); }
+    h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^ Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+    h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+  }
+  return (h2 >>> 0).toString(16).padStart(8,'0') + (h1 >>> 0).toString(16).padStart(8,'0');
+}
+let pinState = null;
+function pinDialog(st){
+  pinState = st;
+  $('#pinTitle').textContent = st.title; $('#pinSub').innerHTML = st.sub || '';
+  $('#pinMsg').textContent = ''; const i = $('#pinInput'); i.value = '';
+  $('#pinModal').classList.add('show'); setTimeout(() => i.focus(), 60);
+}
+function askPin(onOk){
+  if(!P.pin) return setupPin(onOk);
+  if(P.open) return onOk && onOk();
+  pinDialog({ mode:'unlock', title:'🔒 أدخل الرمز السري', sub:'هذا المحتوى خاص.', onOk });
+}
+function setupPin(onOk){
+  pinDialog({ mode:'new', title:'🔐 إنشاء رمز سري', sub:'اختر رمزاً من ٤ إلى ٨ أرقام لحماية القنوات المقفلة والمخفية.', onOk });
+}
+function needPin(fn){ P.pin ? fn() : setupPin(fn); }
+function requireOpen(fn){ P.open ? fn() : askPin(fn); }
+$('#pinForm').onsubmit = e => {
+  e.preventDefault();
+  const v = $('#pinInput').value.trim(), st = pinState, m = $('#pinMsg');
+  if(!/^\d{4,8}$/.test(v)){ m.textContent = 'الرمز يجب أن يكون من ٤ إلى ٨ أرقام.'; return; }
+  if(st.mode === 'unlock'){
+    if(hashPin(v) !== P.pin){ m.textContent = 'الرمز غير صحيح.'; $('#pinInput').value = ''; $('.pinbox').classList.remove('shake'); void $('.pinbox').offsetWidth; $('.pinbox').classList.add('shake'); return; }
+    $('#pinModal').classList.remove('show'); P.open = true; refresh(); toast('تم فتح الوضع الخاص 🔓'); st.onOk && st.onOk();
+  } else if(st.mode === 'new'){
+    pinState = { ...st, mode:'confirm', first:v }; $('#pinTitle').textContent = '🔐 أعد كتابة الرمز للتأكيد'; $('#pinInput').value = ''; m.textContent = '';
+  } else if(st.mode === 'confirm'){
+    if(v !== st.first){ pinState = { ...st, mode:'new' }; $('#pinTitle').textContent = '🔐 إنشاء رمز سري'; $('#pinInput').value = ''; m.textContent = 'الرمزان غير متطابقين، حاول مرة أخرى.'; return; }
+    P.pin = hashPin(v); P.open = true; savePriv(); $('#pinModal').classList.remove('show'); refresh();
+    sheet('تم حفظ الرمز السري ✓', [
+      { note:'<b>المدخل السري:</b> لفتح القنوات المخفية لاحقاً، اضغط على <b>شعار البرنامج ▶</b> أعلى الشاشة <b>٥ مرات بسرعة</b> (أو اضغط عليه مطوّلاً)، ثم أدخل الرمز.<br>لا يوجد أي زر ظاهر يدلّ على ذلك، فاحفظ هذه الطريقة.' },
+      { icon:'👍', label:'فهمت', fn: () => st.onOk && st.onOk() }
+    ]);
+  }
+};
+$('#pinCancel').onclick = () => $('#pinModal').classList.remove('show');
+function lockNow(){
+  P.open = false; closeSheet();
+  if(S.cur && (isHidden(S.cur) || isLocked(S.cur))) $('#bClose').click();
+  if(S.selMode) exitSel();
+  refresh(); toast('تم قفل الوضع الخاص 🔒');
+}
+$('#privBadge').onclick = lockNow;
+/* secret entrance: 5 quick taps or long-press on the logo */
+(() => {
+  const logo = $('.brand .logo'); let taps = [];
+  logo.addEventListener('click', () => { const n = Date.now(); taps = taps.filter(t => n - t < 2500); taps.push(n); if(taps.length >= 5){ taps = []; secret(); } });
+  let t = null;
+  logo.addEventListener('pointerdown', () => { t = setTimeout(() => { t = null; taps = []; secret(); }, 1300); });
+  ['pointerup','pointerleave','pointercancel'].forEach(ev => logo.addEventListener(ev, () => clearTimeout(t)));
+  logo.addEventListener('contextmenu', e => e.preventDefault());
+})();
+function secret(){ if(navigator.vibrate) try{ navigator.vibrate(30); }catch(e){} if(!P.pin) setupPin(privSheet); else askPin(privSheet); }
+function privSheet(){
+  const hc = S.all.filter(isHidden).length, lc = S.all.filter(isLocked).length;
+  sheet('🔐 الوضع الخاص', [
+    { note:`القنوات المخفية: <b>${hc.toLocaleString('ar')}</b> · المقفلة: <b>${lc.toLocaleString('ar')}</b> · الفئات والقوائم المخفية: <b>${P.hideCats.size.toLocaleString('ar')}</b>` },
+    { icon:'👁️', label:'عرض كل القنوات الخاصة', fn: () => { S.cat = '__private'; refresh(); } },
+    { icon:'🔑', label:'تغيير الرمز السري', fn: () => setupPin() },
+    '-',
+    { icon:'🔒', label:'قفل الآن وإخفاء الخاص', fn: lockNow }
+  ]);
+}
+/* auto re-lock after 3 minutes in background */
+let hiddenAt = 0;
+document.addEventListener('visibilitychange', () => {
+  if(document.hidden) hiddenAt = Date.now();
+  else if(P.open && hiddenAt && Date.now() - hiddenAt > 3 * 60 * 1000) lockNow();
+});
+
+/* ---------- Menus ---------- */
+function toggleIn(set, key){ set.has(key) ? set.delete(key) : set.add(key); }
+function cardMenu(c){
+  const added = S.added.some(a => a.url === c.url);
+  const L = isLocked(c), H = isHidden(c);
+  sheet(c.name, [
+    { icon:'★', label: S.favs.has(c.url) ? 'إزالة من المفضلة' : 'إضافة إلى المفضلة', fn: () => { toggleFav(c); renderList(); } },
+    { icon:'📁', label:'إضافة إلى قائمة…', fn: () => listPicker([c.url]) },
+    { icon: P.lock.has(c.url) ? '🔓' : '🔒', label: P.lock.has(c.url) ? 'إلغاء قفل القناة' : 'قفل القناة برمز', fn: () => P.lock.has(c.url) ? requireOpen(() => { P.lock.delete(c.url); savePriv(); refresh(); toast('أُلغي القفل'); }) : needPin(() => { P.lock.add(c.url); savePriv(); refresh(); toast('أُقفلت القناة 🔒'); }) },
+    { icon: P.hide.has(c.url) ? '👁️' : '🙈', label: P.hide.has(c.url) ? 'إظهار القناة' : 'إخفاء القناة', fn: () => P.hide.has(c.url) ? requireOpen(() => { P.hide.delete(c.url); savePriv(); refresh(); toast('أصبحت ظاهرة'); }) : needPin(() => { P.hide.add(c.url); savePriv(); refresh(); toast(P.open ? 'أُخفيت 🙈 — ستختفي عند قفل الوضع الخاص' : 'أُخفيت 🙈'); }) },
+    ...(L && !P.lock.has(c.url) ? [{ note:'هذه القناة مقفلة لأن فئتها أو قائمتها مقفلة.' }] : []),
+    ...(H && !P.hide.has(c.url) ? [{ note:'هذه القناة مخفية لأن فئتها أو قائمتها مخفية.' }] : []),
+    ...(added ? ['-', { icon:'🗑️', label:'حذف من «قنواتي المضافة»', danger:true, fn: () => { S.added = S.added.filter(a => a.url !== c.url); saveAdded(); toast('حُذفت القناة'); } }] : [])
+  ]);
+}
+function catMenu(id, label){
+  const isList = id.startsWith('L:');
+  const items = [
+    { icon: P.lockCats.has(id) ? '🔓' : '🔒', label: P.lockCats.has(id) ? 'إلغاء قفل ' + (isList ? 'القائمة' : 'الفئة') : 'قفل ' + (isList ? 'القائمة' : 'الفئة') + ' برمز',
+      fn: () => P.lockCats.has(id) ? requireOpen(() => { P.lockCats.delete(id); savePriv(); refresh(); }) : needPin(() => { P.lockCats.add(id); savePriv(); refresh(); toast('أُقفلت 🔒'); }) },
+    { icon: P.hideCats.has(id) ? '👁️' : '🙈', label: P.hideCats.has(id) ? 'إظهار ' + (isList ? 'القائمة' : 'الفئة') : 'إخفاء ' + (isList ? 'القائمة' : 'الفئة') + ' بالكامل',
+      fn: () => P.hideCats.has(id) ? requireOpen(() => { P.hideCats.delete(id); savePriv(); refresh(); }) : needPin(() => { P.hideCats.add(id); savePriv(); refresh(); toast(P.open ? 'أُخفيت 🙈 — تختفي تماماً عند قفل الوضع الخاص' : 'أُخفيت 🙈'); }) },
+    { icon:'☑️', label:'تحديد قنوات هذه ' + (isList ? 'القائمة' : 'الفئة'), fn: () => { S.cat = id; S.selMode = true; S.sel.clear(); refresh(); } }
+  ];
+  if(isList){
+    const l = P.lists.find(x => 'L:' + x.id === id);
+    items.push('-',
+      { icon:'✏️', label:'إعادة تسمية', fn: () => ask('اسم القائمة', l.name, v => { l.name = v; savePriv(); refresh(); }) },
+      { icon:'🎨', label:'تغيير الأيقونة', fn: () => iconPicker(l) },
+      { icon:'🗑️', label:'حذف القائمة (القنوات لا تُحذف)', danger:true, fn: () => requireOpenIf(P.lockCats.has(id), () => {
+          P.lists = P.lists.filter(x => x !== l); for(const u in P.memb){ P.memb[u] = P.memb[u].filter(x => x !== l.id); if(!P.memb[u].length) delete P.memb[u]; }
+          P.lockCats.delete(id); P.hideCats.delete(id); savePriv(); if(S.cat === id) S.cat = '__all'; refresh(); toast('حُذفت القائمة'); }) });
+  }
+  sheet((isList ? '📁 ' : '🗂️ ') + label, items);
+}
+const requireOpenIf = (cond, fn) => cond ? requireOpen(fn) : fn();
+const ICONS = ['📁','⭐','⚽','📰','🕌','🎬','🧸','🎵','🌍','👨‍👩‍👧','🔞','💼','🏆','🍿','📚','❤️'];
+function iconPicker(l){ sheet('اختر أيقونة', ICONS.map(i => ({ icon:i, label: i === l.icon ? 'الحالية' : '', fn: () => { l.icon = i; savePriv(); refresh(); } }))); }
+function newList(then){
+  ask('اسم القائمة الجديدة', '', v => {
+    const l = { id: Date.now().toString(36), name: v, icon:'📁' }; P.lists.push(l); savePriv(); refresh(); toast('أُنشئت القائمة «' + v + '»'); then && then(l);
+  }, 'مثال: أخبار، رياضة، للعائلة، قنواتي الخاصة');
+}
+function listPicker(urls){
+  const render = () => sheet(urls.length > 1 ? `إضافة ${urls.length.toLocaleString('ar')} قناة إلى قائمة` : 'إضافة إلى قائمة', [
+    ...visibleLists().map(l => {
+      const inAll = urls.every(u => listsOf(u).includes(l.id));
+      return { icon: l.icon || '📁', label: l.name, check: inAll, keep:true, fn: () => {
+        for(const u of urls){ const cur = listsOf(u).filter(x => x !== l.id); if(!inAll) cur.push(l.id); if(cur.length) P.memb[u] = cur; else delete P.memb[u]; }
+        savePriv(); refresh(); render(); } };
+    }),
+    { icon:'＋', label:'قائمة جديدة…', fn: () => newList(l => { for(const u of urls) P.memb[u] = [...new Set([...listsOf(u), l.id])]; savePriv(); refresh(); toast('أُضيفت إلى «' + l.name + '»'); }) },
+    { icon:'✓', label:'تم', fn: () => {} }
+  ]);
+  render();
+}
+
+/* ---------- Multi-select ---------- */
+function toggleSel(c, node){
+  S.sel.has(c.url) ? S.sel.delete(c.url) : S.sel.add(c.url);
+  if(node) node.classList.toggle('sel', S.sel.has(c.url));
+  updateSelBar();
+}
+function exitSel(){ S.selMode = false; S.sel.clear(); renderList(); }
+function updateSelBar(){
+  const b = $('#selBar'); b.classList.toggle('show', !!S.selMode);
+  $('#selCount').textContent = S.sel.size ? `${S.sel.size.toLocaleString('ar')} محددة` : 'اختر القنوات';
+  $('#bSelect').classList.toggle('on', !!S.selMode);
+}
+$('#bSelect').onclick = () => S.selMode ? exitSel() : (S.selMode = true, S.sel.clear(), renderList());
+$('#sAll').onclick = () => { const all = S.list.every(c => S.sel.has(c.url)); S.list.forEach(c => all ? S.sel.delete(c.url) : S.sel.add(c.url)); renderList(); };
+$('#sList').onclick = () => S.sel.size ? listPicker([...S.sel]) : toast('حدد قنوات أولاً');
+$('#sFav').onclick = () => { if(!S.sel.size) return toast('حدد قنوات أولاً'); S.sel.forEach(u => S.favs.add(u)); set('favs', [...S.favs]); toast('أُضيفت للمفضلة ⭐'); exitSel(); renderCats(); };
+$('#sLock').onclick = () => { if(!S.sel.size) return toast('حدد قنوات أولاً'); needPin(() => { S.sel.forEach(u => P.lock.add(u)); savePriv(); toast('أُقفلت 🔒'); exitSel(); refresh(); }); };
+$('#sHide').onclick = () => { if(!S.sel.size) return toast('حدد قنوات أولاً'); needPin(() => { S.sel.forEach(u => P.hide.add(u)); savePriv(); toast('أُخفيت 🙈'); exitSel(); refresh(); }); };
+$('#sDone').onclick = exitSel;
+
 new IntersectionObserver(es => { if(es[0].isIntersecting) more(); }, {rootMargin:'600px'}).observe($('#sentinel'));
 
 /* ---------- Favourites & recent ---------- */
@@ -640,6 +970,7 @@ function candidates(url){
   return [...new Set(list)];
 }
 function play(c){
+  if(isLocked(c) && !P.open) return askPin(() => play(c));
   S.cur = c; pushRecent(c);
   $('#player').classList.add('show');
   $('#pName').innerHTML = esc(c.name) + '<span class="live">مباشر</span>';
@@ -743,7 +1074,7 @@ $('#q').addEventListener('input', e => { clearTimeout(qt); qt = setTimeout(() =>
 /* ---------- Keyboard ---------- */
 document.addEventListener('keydown', e => {
   const typing = /INPUT|TEXTAREA/.test(document.activeElement.tagName);
-  if(e.key === 'Escape'){ $('#themeModal').classList.remove('show'); if($('#discModal').classList.contains('show')) closeDisc(); else if($('#srcModal').classList.contains('show')) closeSrc(); else if(typing) document.activeElement.blur(); return; }
+  if(e.key === 'Escape'){ ['themeModal','sheet','askModal','pinModal'].forEach(i => $('#'+i).classList.remove('show')); if(S.selMode) exitSel(); if($('#discModal').classList.contains('show')) closeDisc(); else if($('#srcModal').classList.contains('show')) closeSrc(); else if(typing) document.activeElement.blur(); return; }
   if(typing) return;
   if(e.key === '/'){ e.preventDefault(); $('#q').focus(); }
   else if(e.key === 'ArrowDown' || e.key === 'PageDown'){ if(S.cur){ e.preventDefault(); step(1); } }
@@ -830,7 +1161,7 @@ $('#addOne').onclick = () => {
   const name = $('#oName').value.trim(), url = $('#oUrl').value.trim();
   if(!name || !/^https?:\/\//i.test(url)){ msg('أدخل اسم القناة ورابطاً يبدأ بـ http:// أو https://'); return; }
   if(isAdded(url)){ msg('هذه القناة مضافة مسبقاً.'); return; }
-  S.added.push({ name, url, logo: $('#oLogo').value.trim(), cg: $('#oGroup').value.trim() || '' , group:'' });
+  S.added.push({ name, url, logo: $('#oLogo').value.trim(), cg: $('#oGroup').value.trim() || '' , group:'' }); P.seen[url] = Date.now();
   saveAdded(); msg(`أُضيفت «${esc(name)}» ✓`, true);
   ['oName','oUrl','oLogo'].forEach(i => $('#'+i).value = '');
 };
@@ -1132,7 +1463,7 @@ function resItem(c){
 }
 const asCh = c => ({ name:c.name, logo:c.logo, url:c.url, group: [ccName(c.cc), ...c.cats.slice(0,1).map(x => CAT_AR[x] || x)].filter(Boolean).join(' · ') || 'دليل مفتوح' });
 const isAdded = url => S.added.some(a => a.url === url);
-function addCh(c){ if(!isAdded(c.url)) S.added.push(asCh(c)); }
+function addCh(c){ if(!isAdded(c.url)){ S.added.push(asCh(c)); P.seen[c.url] = Date.now(); } }
 function saveAdded(){ set('added', S.added); setChannels(); }
 
 function aiStatus(){
@@ -1157,6 +1488,9 @@ $('#aiDel').onclick = async () => { D.ai = {key:'', model:D.ai.model}; $('#aiKey
   D.ai = (await get('ai')) || {key:'', model:''};
   const op = await get('dopt'); if(op){ Object.assign(D.opt, op); $('#fGeo').checked = D.opt.geo; $('#fHttps').checked = D.opt.https; $('#f247').checked = D.opt.full; }
   $('#aiKey').value = D.ai.key || ''; $('#aiModel').value = D.ai.model || '';
+  const pv = await get('priv'); if(pv){ P.lists = pv.lists || []; P.memb = pv.memb || {}; P.lock = new Set(pv.lock || []); P.hide = new Set(pv.hide || []);
+    P.lockCats = new Set(pv.lockCats || []); P.hideCats = new Set(pv.hideCats || []); P.pin = pv.pin || null; }
+  const sn = await get('seen'); if(sn){ P.seen = sn.m || {}; P.seenInit = !!sn.init; }
   const text = await get('playlist');
   setChannels(text ? parseM3U(text) : []);
   if(!text && !S.added.length) openSrc();
